@@ -1,8 +1,12 @@
+import { JwtService } from '@nestjs/jwt';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentModule } from './student/student.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,9 +19,10 @@ import { StudentModule } from './student/student.module';
     database: 'nestjs_project',
     entities: [],
 }),
-StudentModule
+StudentModule,
+AuthModule
 ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService, JwtService],
 })
 export class AppModule {}
